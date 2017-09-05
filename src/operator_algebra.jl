@@ -2,34 +2,31 @@
 const qoa = PyNULL()
 function init_qoa()
     copy!(qoa, pyimport("qnet.algebra.operator_algebra"))
-    global const Qid = QOperator(qoa[:IdentityOperator])
+    global const Id = Operator(qoa[:IdentityOperator])
 end
 
-type QOperator <: QNETObject
+type Operator <: QNETObject
     o::PyObject
 end
-pyo(qo::QOperator) = qo.o
-Destroy(qs::QSpace) = QOperator(qoa[:Destroy](hs=qs.s))
-Destroy(name::String) = QOperator(QSpace(name))
+pyo(qo::Operator) = qo.o
 
-space(qo::QOperator) = QSpace(qo.o[:space])
+Destroy(qs::QSpace) = Operator(qoa[:Destroy](hs=qs.s))
 
-ctranspose(qo::QOperator) = QOperator(qoa[:Adjoint](qo.o))
-+(qo1::QOperator, qo2::QOperator) = QOperator(qo1.o[:__add__](qo2.o))
-*(qo1::QOperator, qo2::QOperator) = QOperator(qo1.o[:__mul___](qo.o))
-*(c::Number, qo::QOperator) = QOperator(qoa[:ScalarTimesOperator](c,qo.o))
+ctranspose(qo::Operator) = Operator(qoa[:Adjoint](qo.o))
++(qo1::Operator, qo2::Operator) = Operator(qo1.o[:__add__](qo2.o))
+*(qo1::Operator, qo2::Operator) = Operator(qo1.o[:__mul__](qo2.o))
+*(c::Number, qo::Operator) = Operator(qoa[:ScalarTimesOperator](c,qo.o))
 
--(qo::QOperator) = *(-1,Qid) * qos
-+(c::Number, qo::QOperator) = *(c,Qid) + qo
+-(qo::Operator) = *(-1,Id) * qos
++(c::Number, qo::Operator) = *(c,Id) + qo
 
-+(qo::QOperator, c::Number) = c + qo
-*(qo::QOperator, c::Number) = c * qo
++(qo::Operator, c::Number) = c + qo
+*(qo::Operator, c::Number) = c * qo
 
--(qo1::QOperator, qo2::QOperator) = qo1 + -(qo2)
--(c::Number, qo::QOperator) = c + -(qo)
--(qo::QOperator, c::Number) = -(c) + qo
-/(qo::QOperator, c::Number) = (1/c) * qo
+-(qo1::Operator, qo2::Operator) = qo1 + -(qo2)
+-(c::Number, qo::Operator) = c + -(qo)
+-(qo::Operator, c::Number) = -(c) + qo
+/(qo::Operator, c::Number) = (1/c) * qo
 
-substitute(qo::QOperator; kws...) = QMatrix(qo.o[:substitute](Dict(kws)))
-
-Displace(alpha::Number) = QOperator(qoa[:Displace](alpha))
+space(qo::Operator) = QSpace(qo.o[:space])
+substitute(qo::Operator; kws...) = QMatrix(qo.o[:substitute](Dict(kws)))

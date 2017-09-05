@@ -6,7 +6,7 @@ import Base.show
 import Base: +, -, *, /, ctranspose, getindex
 import Base: convert
 
-export Destroy, QSpace, QMatrix, Qid, Qeye, substitute, ⊞, SLH, ▷
+export Space
 
 using PyCall
 
