@@ -10,6 +10,11 @@ export Destroy, QSpace, QMatrix, Qid, Qeye, substitute, ⊞, SLH, ▷
 
 using PyCall
 
+abstract type QNETObject end
+function show(io::IO, mime::MIME{Symbol("text/latex")}, q::QNETObject)
+    write(io, convert(AbstractString, pyo(q)[:_repr_latex_]()))
+end
+
 include("hilbert_space_algebra.jl")
 include("operator_algebra.jl")
 include("matrix_algebra.jl")
