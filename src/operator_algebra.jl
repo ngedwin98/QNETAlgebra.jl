@@ -27,4 +27,3 @@ ctranspose(qo::QOperator) = QOperator(qoa[:Adjoint](qo.o))
 /(qo::QOperator, c::Number) = (1/c) * qo
 
 space(qo::QOperator) = QSpace(qo.o[:space])
-substitute(qo::QOperator; kws...) = QOperator(qo.o[:substitute](Dict(kws)))

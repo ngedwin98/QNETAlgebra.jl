@@ -17,4 +17,4 @@ QMatrix(arr::Array{Any}) = QMatrix([isa(e,QOperator)?e:*(e,Id)])
 Qeye(n::Int) = QMatrix(qma[:identity_matrix](n))
 
 getindex(qm::QMatrix, ind::Int) = QOperator(qm.m[ind])
-substitute(qm::QMatrix; subs...) = QMatrix(qm.m[:substitute](Dict(subs)))
+#substitute(qm::QMatrix; subs...) = QMatrix(qm.m[:substitute](Dict(subs)))
