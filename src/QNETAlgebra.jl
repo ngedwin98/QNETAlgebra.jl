@@ -6,7 +6,7 @@ import Base.show
 import Base: +, -, *, /, ctranspose, getindex
 import Base: convert
 
-export Space
+export QSpace
 
 using PyCall
 
