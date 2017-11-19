@@ -26,6 +26,8 @@ function getindex(q::T, subs::Pair{S,S}) where {T<:QNETObject} where {S<:QNETObj
     return substitute(q, subs[1], subs[2])
 end
 
+function (q::Q)
+
 
 include("hilbert_space_algebra.jl")
 include("operator_algebra.jl")
